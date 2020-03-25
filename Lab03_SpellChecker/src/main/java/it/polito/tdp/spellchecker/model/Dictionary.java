@@ -7,25 +7,26 @@ import java.util.*;
 
 public class Dictionary {
 
-	List<String> dizionarioItaliano = new ArrayList<String>();
-	List<String> dizionarioInglese = new ArrayList<String>();
+	private List<String> dizionarioItaliano;
+	private List<String> dizionarioInglese;
+	private String lingua;
 
-	
-	
-	
 	public Dictionary() {
-		
+		dizionarioItaliano = new ArrayList<String>();
+		dizionarioInglese = new ArrayList<String>();
 	}
 
 	public void loadDictionary(String language) {
 
 		if (language.compareTo("Italian") == 0) {
+
 			try {
-				FileReader fr = new FileReader("scr\\main\\resources\\Italian.txt");
+				FileReader fr = new FileReader(
+						"C:\\Users\\Lenovo Personal Pc\\git\\Lab03\\Lab03_SpellChecker\\target\\classes\\Italian.txt");
 				BufferedReader br = new BufferedReader(fr);
 				String word;
 				while (((word = br.readLine()) != null)) {
-					dizionarioItaliano.add(word);
+					dizionarioItaliano.add(word.toLowerCase());
 
 				}
 				br.close();
@@ -35,11 +36,12 @@ public class Dictionary {
 			}
 		} else if (language.compareTo("English") == 0) {
 			try {
-				FileReader fr = new FileReader("scr\\main\\resources\\English.txt");
+				FileReader fr = new FileReader(
+						"C:\\Users\\Lenovo Personal Pc\\git\\Lab03\\Lab03_SpellChecker\\target\\classes\\English.txt");
 				BufferedReader br = new BufferedReader(fr);
 				String word;
 				while (((word = br.readLine()) != null)) {
-					dizionarioInglese.add(word);
+					dizionarioInglese.add(word.toLowerCase());
 				}
 				br.close();
 			} catch (IOException e) {
@@ -49,26 +51,44 @@ public class Dictionary {
 		}
 	}
 
+	public String lingua(String language) {
+		return lingua = language;
+	}
+
 	public List<RichWord> spellCheckList(List<String> inputTextList) {
 
-		Map<String, RichWord> h = new TreeMap<String, RichWord>();
+		List<RichWord> h = new ArrayList<RichWord>();
 
-		for (String s : inputTextList) {
-			for (String x : dizionarioItaliano) {
-				for (String y : dizionarioInglese) {
-					if (s.compareTo(y) == 0 || s.compareTo(x) == 0) {
-						RichWord w = new RichWord(s, true);
-						h.put(s, w);
-					} else {
-						RichWord w = new RichWord(s, false);
-						h.put(s, w);
-					}
+		if (lingua.compareTo("Italian") == 0) {
+			for (String s : inputTextList) {
+				RichWord w = new RichWord();
+				if (dizionarioItaliano.contains(s)) {
+					w.setParola(s);
+					w.setCorretta(true);
+				} else {
+					w.setParola(s);
+					w.setCorretta(false);
 
 				}
+				h.add(w);
+			}
+
+		} else {
+			for (String s : inputTextList) {
+				RichWord w = new RichWord();
+				if (dizionarioInglese.contains(s)) {
+					w.setParola(s);
+					w.setCorretta(true);
+				} else {
+					w.setParola(s);
+					w.setCorretta(false);
+				}
+
+				h.add(w);
 			}
 		}
+		return h;
 
-		return (List<RichWord>) h.values();
 	}
 
 	public List<String> getDizionarioItaliano() {

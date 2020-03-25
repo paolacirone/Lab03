@@ -30,6 +30,14 @@ public class RichWord {
 	public void setCorretta(boolean corretta) {
 		this.corretta = corretta;
 	}
+
+	@Override
+	public String toString() {
+		return "parola= " + parola + ", corretta=" + corretta;
+	}
+
+	
+	
 	
 	
 	

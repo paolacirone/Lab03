@@ -52,32 +52,47 @@ public class FXMLController {
 	@FXML
 	void doClearText(ActionEvent event) {
 
+		
 	}
 
 	@FXML
 	void doSpellCheck(ActionEvent event) {
+		
+		long time1=System.nanoTime();
 
-		String text = txtArea.getText().replaceAll("[.,\\/#!$%\\^&\\*;:{}=\\-_`~()\\[\\]\"]", "");
+		String text = txtArea.getText().replaceAll("[.,\\/#!$%\\^&\\*;:{}=\\-_`~()\\[\\]\"]", "").toLowerCase();
 
 		String[] testo = text.split(" ");
+		int errate=0;
 
 		List<String> x = Arrays.asList(testo);
+		System.out.println(x.size());
 
 		// controllo che nel choiceBox sia stata scelta una lingua
 		if (choiceBox.getValue() == null) {
 			txtArea.setText("Selezionare una lingua.");
 			return;
-		} else {
-			dizionario.loadDictionary(choiceBox.getValue());
+		} 
+		
+		dizionario.lingua(choiceBox.getValue());
+	    dizionario.loadDictionary(choiceBox.getValue());
+		
+
+		List<RichWord> parole = new ArrayList<RichWord>();
+
+		parole = dizionario.spellCheckList(x);
+		
+		for (RichWord r : parole) {
+			if(r.isCorretta()==false) {
+			txtWrongWords.appendText(r.getParola()+"\n");
+			errate++;
+			}
 		}
-
-		List<RichWord> errate = new ArrayList<RichWord>();
-
-		errate = dizionario.spellCheckList(x);
-
-		for (RichWord r : errate) {
-			txtWrongWords.appendText(r.getParola());
-		}
+		long time2=System.nanoTime();
+		
+		this.lblErrors.setText("The text contains "+errate+" errors");
+		this.lblTime.setText("Spell check completed in "+(time2-time1));
+	
 
 	}
 
