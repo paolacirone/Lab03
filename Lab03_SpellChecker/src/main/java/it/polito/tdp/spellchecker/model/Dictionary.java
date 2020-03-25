@@ -91,6 +91,65 @@ public class Dictionary {
 
 	}
 
+	public List<RichWord> spellCheckListLinear(List<String> inputTextList) {
+
+		List<RichWord> h = new ArrayList<RichWord>();
+
+		if (this.lingua.compareTo("Italian") == 0) {
+
+			int i = 0;
+			for (String s : inputTextList) {
+				if (i < dizionarioItaliano.size()) {
+					RichWord w = new RichWord();
+					for (String x : this.dizionarioItaliano) {
+						if (s.equals(x)) {
+							w.setParola(s);
+							w.setCorretta(true);
+							break;
+						} else {
+							w.setParola(s);
+							w.setCorretta(false);
+						}
+						
+					}h.add(w);
+						i++;
+				}
+			}
+		} else {
+
+
+			int i = 0;
+			for (String s : inputTextList) {
+				if (i < dizionarioInglese.size()) {
+					RichWord w = new RichWord();
+					for (String x : this.dizionarioInglese) {
+						if (s.equals(x)) {
+							w.setParola(s);
+							w.setCorretta(true);
+							break;
+						} else {
+							w.setParola(s);
+							w.setCorretta(false);
+						}
+						
+					}h.add(w);
+						i++;
+				}
+			}
+
+		}
+
+		System.out.println(h.size());
+		return h;
+
+	}
+
+	/*
+	 * public List<RichWord> spellCheckListDichotomic(List<String> inputTextList) {
+	 * 
+	 * }
+	 */
+
 	public List<String> getDizionarioItaliano() {
 		return dizionarioItaliano;
 	}

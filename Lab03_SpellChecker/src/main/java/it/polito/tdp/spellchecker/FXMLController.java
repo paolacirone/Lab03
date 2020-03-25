@@ -52,6 +52,8 @@ public class FXMLController {
 	@FXML
 	void doClearText(ActionEvent event) {
 
+		txtArea.clear();
+		this.txtWrongWords.clear();
 		
 	}
 
@@ -80,13 +82,14 @@ public class FXMLController {
 
 		List<RichWord> parole = new ArrayList<RichWord>();
 
-		parole = dizionario.spellCheckList(x);
-		
+		//parole = dizionario.spellCheckList(x);
+		parole=dizionario.spellCheckListLinear(x);
 		for (RichWord r : parole) {
 			if(r.isCorretta()==false) {
 			txtWrongWords.appendText(r.getParola()+"\n");
 			errate++;
 			}
+			
 		}
 		long time2=System.nanoTime();
 		
