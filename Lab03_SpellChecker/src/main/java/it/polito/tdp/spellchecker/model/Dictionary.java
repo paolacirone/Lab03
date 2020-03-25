@@ -21,7 +21,7 @@ public class Dictionary {
 
 		if (language.compareTo("Italian") == 0) {
 			try {
-				FileReader fr = new FileReader("Italian.txt");
+				FileReader fr = new FileReader("scr\\main\\resources\\Italian.txt");
 				BufferedReader br = new BufferedReader(fr);
 				String word;
 				while (((word = br.readLine()) != null)) {
@@ -35,7 +35,7 @@ public class Dictionary {
 			}
 		} else if (language.compareTo("English") == 0) {
 			try {
-				FileReader fr = new FileReader("English.txt");
+				FileReader fr = new FileReader("scr\\main\\resources\\English.txt");
 				BufferedReader br = new BufferedReader(fr);
 				String word;
 				while (((word = br.readLine()) != null)) {

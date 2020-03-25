@@ -79,8 +79,6 @@ public class FXMLController {
 			txtWrongWords.appendText(r.getParola());
 		}
 
-		// String[] testo =
-		// txtArea.getText().replaceAll(“[.,\\/#!$%\\^&\\*;:{}=\\-_`~()\\[\\]\]", ""));
 	}
 
 	@FXML
